@@ -1,240 +1,217 @@
-Hệ Thống Điều Khiển Nhà Thông Minh Bằng Cử Chỉ với Bảo Mật PIN
-📋 Tổng Quan Dự Án
-Hệ thống điều khiển nhà thông minh dựa trên ESP32-S3 với tính năng nhận diện cử chỉ để điều khiển và bảo mật bằng mã PIN kèm thông báo qua email. Hệ thống bao gồm giao diện web để giám sát và điều khiển, đèn LED RGB báo trạng thái, động cơ servo điều khiển cửa và module relay điều khiển thiết bị điện.
+# 🏠 Hệ Thống Nhà Thông Minh Điều Khiển Bằng Cử Chỉ
 
-✨ Tính Năng Chính
-🔐 Hệ Thống Bảo Mật
-Xác thực bằng mã PIN 4 số để truy cập hệ thống
+## 📋 Giới thiệu
 
-Đèn LED RGB báo trạng thái: Đỏ (khóa) / Xanh lá (mở khóa)
+Dự án xây dựng hệ thống **Smart Home sử dụng ESP32-S3** cho phép điều khiển thiết bị bằng **cử chỉ tay** kết hợp **xác thực bằng mã PIN**.
+Hệ thống có giao diện web để giám sát và điều khiển, đồng thời gửi **thông báo email khi có sự kiện bảo mật**.
 
-Thông báo qua email cho:
+---
 
-Các lần mở khóa thành công
+# ✨ Tính năng chính
 
-Các lần nhập sai mật khẩu (kèm mã PIN đã nhập)
+## 🔐 Hệ thống bảo mật
 
-Khóa bằng cử chỉ: Cử chỉ xoay ngược chiều kim đồng hồ để khóa hệ thống
+* Xác thực bằng **mã PIN 4 số**
+* Đèn **LED RGB báo trạng thái**
 
-🖐️ Điều Khiển Bằng Cử Chỉ (Cảm biến PAJ7620)
-Khi hệ thống đang KHÓA:
-LÊN/XUỐNG: Di chuyển trên bàn phím số ảo
+  * 🔴 Đỏ: hệ thống khóa
+  * 🟢 Xanh lá: hệ thống đã mở khóa
+* Gửi **email thông báo**
 
-TRÁI/PHẢI: Di chuyển ngang trên bàn phím số
+  * Khi mở khóa thành công
+  * Khi nhập sai mật khẩu (kèm mã PIN đã nhập)
+* Cử chỉ **xoay ngược chiều kim đồng hồ** để khóa lại hệ thống
 
-TIẾN (NEAR): Chọn số hiện tại và nhập vào mã PIN
+---
 
-XOAY CÙNG CHIỀU KĐH: Xóa ký tự cuối cùng trong mã PIN
+# 🖐️ Điều khiển bằng cử chỉ
 
-Khi hệ thống đã MỞ KHÓA:
-TRÁI/PHẢI: Chuyển đổi giữa các thiết bị/phòng
+Sử dụng **cảm biến PAJ7620** để nhận diện cử chỉ.
 
-LÊN: Bật thiết bị/phòng đang chọn
+## Khi hệ thống đang khóa
 
-XUỐNG: Tắt thiết bị/phòng đang chọn
+* ⬆️⬇️ : Di chuyển trên bàn phím số ảo
+* ⬅️➡️ : Di chuyển ngang bàn phím
+* ✋ Near : Chọn số hiện tại
+* 🔄 Xoay cùng chiều KĐH : Xóa ký tự cuối
 
-TIẾN (NEAR): Bật TẤT CẢ thiết bị
+## Khi hệ thống đã mở khóa
 
-LÙI (FAR): Tắt TẤT CẢ thiết bị
+* ⬅️➡️ : Chuyển thiết bị / phòng
+* ⬆️ : Bật thiết bị
+* ⬇️ : Tắt thiết bị
+* ✋ Near : Bật tất cả thiết bị
+* ✋ Far : Tắt tất cả thiết bị
+* 🔄 Xoay ngược KĐH : Khóa hệ thống
 
-XOAY NGƯỢC CHIỀU KĐH: Khóa hệ thống
+---
 
-🌐 Giao Diện Web (Phong cách iOS)
-Giao diện hiện đại, tối ưu cho điện thoại
+# 🌐 Giao diện Web
 
-Hiển thị bàn phím số khi hệ thống khóa
+Giao diện web được thiết kế **tối ưu cho điện thoại (phong cách iOS)**.
 
-Bảng điều khiển trực quan khi đã mở khóa:
+Chức năng:
 
-Danh sách phòng và thiết bị được phân nhóm rõ ràng
+* Bàn phím số khi hệ thống khóa
+* Bảng điều khiển thiết bị khi đã mở khóa
+* Công tắc bật/tắt thiết bị
+* Nút **ALL ON / ALL OFF**
+* Nút **LOCK SYSTEM**
+* Hiển thị cử chỉ đang nhận diện
+* Cập nhật trạng thái **real-time mỗi 500ms**
 
-Công tắc gạt (toggle) cho từng thiết bị/phòng
+---
 
-Nút ALL ON / ALL OFF
+# 💡 Thiết bị điều khiển
 
-Nút LOCK SYSTEM
+| Thiết bị  | GPIO |
+| --------- | ---- |
+| Đèn 1     | 35   |
+| Quạt 1    | 7    |
+| Đèn 2     | 37   |
+| Quạt 2    | 6    |
+| Servo cửa | 21   |
 
-Cập nhật thời gian thực mỗi 500ms
+---
 
-Hiển thị cử chỉ hiện tại với biểu tượng trực quan
+# 🏠 Phòng (nhóm thiết bị)
 
-💡 Thiết Bị Điều Khiển
-Đèn 1 (Relay, GPIO 35)
+**Phòng 1**
 
-Quạt 1 (Relay, GPIO 7)
+* Đèn 1
+* Quạt 1
 
-Đèn 2 (Relay, GPIO 37)
+**Phòng 2**
 
-Quạt 2 (Relay, GPIO 6)
+* Đèn 2
+* Quạt 2
 
-Cửa chính (Servo, GPIO 21)
+---
 
-🏠 Phòng (Nhóm Logic)
-Phòng 1: Đèn 1 + Quạt 1
+# 🔧 Phần cứng sử dụng
 
-Phòng 2: Đèn 2 + Quạt 2
+* ESP32-S3
+* Cảm biến cử chỉ **PAJ7620**
+* LED RGB **WS2812 / Neopixel**
+* Servo điều khiển cửa
+* Module Relay 4 kênh
 
-🔧 Phần Cứng Yêu Cầu
-Vi điều khiển: ESP32-S3 (hoặc tương thích)
+---
 
-Cảm biến cử chỉ: PAJ7620 (I2C)
+# 📦 Sơ đồ kết nối
 
-Đèn LED RGB: WS2812/Neopixel (GPIO 48)
+| Thiết bị    | GPIO         |
+| ----------- | ------------ |
+| PAJ7620 SCL | 9            |
+| PAJ7620 SDA | 8            |
+| LED RGB     | 48           |
+| Servo       | 21           |
+| Relay       | 35, 7, 37, 6 |
 
-Động cơ Servo: Điều khiển cửa (GPIO 21)
+---
 
-Module Relay: 4 relay (GPIO 35, 7, 37, 6)
+# ⚙️ Cấu hình
 
-Nguồn điện: Phù hợp cho ESP32 và các thiết bị
+## WiFi
 
-📦 Sơ Đồ Kết Nối
-Thiết bị	GPIO	Ghi chú
-Cảm biến PAJ7620 SCL	9	I2C Clock
-Cảm biến PAJ7620 SDA	8	I2C Data
-LED RGB (Neopixel)	48	Data
-Servo	21	PWM
-Relay Đèn 1	35	Active HIGH
-Relay Quạt 1	7	Active HIGH
-Relay Đèn 2	37	Active HIGH
-Relay Quạt 2	6	Active HIGH
-⚙️ Cài Đặt
-1. Cấu hình WiFi
-python
-SSID = "B095"           # Tên WiFi
-PASSWORD = "Vien230305@" # Mật khẩu WiFi
-2. Cấu hình Email (Gmail)
-python
-SENDER_EMAIL = "letrivien004@gmail.com"
-SENDER_PASSWORD = "qwytkfqpvvvjklqp"  # Mật khẩu ứng dụng Gmail
-RECEIVER_EMAIL = "letrivien004@gmail.com"
-3. Cấu hình Mã PIN
-python
-CORRECT_PIN = "2303"  # Mã PIN mặc định
-📥 Hướng Dẫn Nạp Code
-Cài đặt MicroPython lên ESP32-S3
+```python
+SSID = "B095"
+PASSWORD = "Vien230305@"
+```
 
-Tải code lên thiết bị (main.py)
+## Email
 
-Kết nối phần cứng theo sơ đồ trên
+```python
+SENDER_EMAIL = "example@gmail.com"
+SENDER_PASSWORD = "app_password"
+RECEIVER_EMAIL = "example@gmail.com"
+```
 
-Khởi động lại ESP32
+## Mã PIN
 
-Truy cập giao diện web: Mở trình duyệt và nhập địa chỉ IP của ESP32 (hiển thị trong serial console)
+```python
+CORRECT_PIN = "2303"
+```
 
-🎮 Cách Sử Dụng
-1. Mở khóa hệ thống
-Di chuyển trên bàn phím số bằng cử chỉ LÊN/XUỐNG/TRÁI/PHẢI
+---
 
-Dùng cử chỉ TIẾN để chọn số
+# 📥 Cài đặt
 
-Nhập đúng mã PIN 4 số để mở khóa (đèn chuyển từ đỏ → xanh)
+1. Cài **MicroPython cho ESP32-S3**
+2. Upload file `main.py`
+3. Kết nối phần cứng theo sơ đồ
+4. Khởi động lại ESP32
+5. Truy cập web bằng **địa chỉ IP của ESP32**
 
-2. Điều khiển thiết bị (sau khi mở khóa)
-Dùng cử chỉ TRÁI/PHẢI để chọn thiết bị/phòng
+---
 
-Dùng cử chỉ LÊN để bật, XUỐNG để tắt
+# 🎮 Cách sử dụng
 
-Dùng cử chỉ TIẾN để bật tất cả, LÙI để tắt tất cả
+### Mở khóa
 
-Dùng cử chỉ XOAY NGƯỢC CHIỀU KĐH để khóa lại
+1. Di chuyển trên bàn phím bằng cử chỉ
+2. Dùng cử chỉ **Near** để chọn số
+3. Nhập đúng PIN để mở khóa
 
-3. Sử dụng giao diện web
-Khi khóa: Bàn phím số ảo, nhập PIN trực tiếp trên web
+### Điều khiển thiết bị
 
-Khi mở khóa: Bảng điều khiển với các công tắc gạt
+* ⬅️➡️ : chọn thiết bị
+* ⬆️ : bật
+* ⬇️ : tắt
 
-Nhấn nút ALL ON / ALL OFF để điều khiển nhanh
+### Điều khiển qua web
 
-Nhấn LOCK SYSTEM để khóa từ xa
+* Toggle từng thiết bị
+* ALL ON / ALL OFF
+* LOCK SYSTEM
 
-📧 Email Notifications
-Hệ thống gửi email thông báo trong các trường hợp:
+---
 
-Mở khóa thành công: "🏠 Smart Home Unlocked"
+# 📧 Email Notification
 
-Nhập sai mật khẩu: "🔐 Security Alert - Wrong Password Attempt" (kèm mã PIN đã nhập)
+Hệ thống gửi email khi:
 
-🔍 Xử Lý Sự Cố Thường Gặp
-Không tìm thấy cảm biến PAJ7620
+* 🏠 **Smart Home Unlocked**
+* 🔐 **Security Alert – Wrong Password Attempt**
 
-Kiểm tra kết nối I2C (SCL/SDA)
+---
 
-Đảm bảo địa chỉ I2C đúng (0x73)
+# 🔍 Xử lý lỗi
 
-Không kết nối được WiFi
+**Không nhận cảm biến**
 
-Kiểm tra SSID và mật khẩu
+* Kiểm tra I2C
+* Kiểm tra địa chỉ 0x73
 
-Đảm bảo tín hiệu WiFi đủ mạnh
+**Không kết nối WiFi**
 
-Không gửi được email
+* Kiểm tra SSID
+* Kiểm tra tín hiệu mạng
 
-Kiểm tra mật khẩu ứng dụng Gmail (không phải mật khẩu tài khoản)
+**Không gửi email**
 
-Đảm bảo đã bật "Less secure app access" hoặc tạo App Password
+* Sử dụng Gmail App Password
 
-Servo không hoạt động
+---
 
-Kiểm tra nguồn điện (servo cần dòng cao)
+# 🚀 Hướng phát triển
 
-Đảm bảo chân GPIO đúng (21)
+* Thêm thiết bị mới
+* Thêm phòng mới
+* Tùy chỉnh layout keypad
+* Thêm các cử chỉ điều khiển mới
 
-Relay không chuyển trạng thái
+---
 
-Kiểm tra logic active HIGH/LOW
+# ⚠️ Lưu ý bảo mật
 
-Đo điện áp chân điều khiển
+* Không chia sẻ mã PIN
+* Không công khai mật khẩu email
+* Nên đổi PIN mặc định
+* Sử dụng **App Password cho Gmail**
 
-📊 Luồng Hoạt Động
-text
-Khởi động
-    ↓
-Kết nối WiFi
-    ↓
-Khởi tạo cảm biến & thiết bị
-    ↓
-Web server chạy (thread riêng)
-    ↓
-Vòng lặp chính:
-    ↓
-Đọc cử chỉ từ PAJ7620
-    ↓
-─── Nếu KHÓA ───→ Xử lý điều hướng bàn phím & nhập PIN
-│                   ↓
-│               Đúng PIN? → Gửi email thông báo → Mở khóa
-│                   ↓
-│               Sai PIN? → Gửi email cảnh báo
-│
-─── Nếu MỞ KHÓA ─→ Xử lý điều khiển thiết bị theo cử chỉ
-                    ↓
-                Cập nhật trạng thái thiết bị
-                    ↓
-                Giao diện web cập nhật real-time
-📝 Ghi Chú
-Mã PIN mặc định là 2303 (có thể thay đổi trong code)
+---
 
-Email sử dụng SMTP Gmail với STARTTLS (port 587)
+# 👨‍💻 Tác giả
 
-Hệ thống tự động khóa khi khởi động lại
-
-Giao diện web tự động cập nhật mỗi 500ms
-
-🚀 Mở Rộng
-Bạn có thể dễ dàng mở rộng hệ thống bằng cách:
-
-Thêm thiết bị mới vào mảng devices
-
-Thêm phòng mới vào mảng rooms
-
-Tùy chỉnh layout keypad
-
-Thêm các hành động cho cử chỉ mới
-
-⚠️ Bảo Mật
-Không chia sẻ mã PIN hoặc mật khẩu email
-
-Nên đổi mã PIN mặc định
-
-Sử dụng mật khẩu ứng dụng (App Password) cho Gmail
-
-Đảm bảo mạng WiFi được bảo mật
+DTQuang85
